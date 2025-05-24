@@ -27,7 +27,7 @@ function DashboardPage() {
   return (
     // Adjusted padding to match DashboardLayout's main content for consistency
     <div className="space-y-4 sm:space-y-6"> {/* Using space-y for consistent vertical spacing */}
-      <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">Dashboard Overview</h1>
+      <h1 className="text-xl sm:text-2xl font-semibold text-neutral-800">Dashboard Overview</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {summaryData.map((item, index) => (

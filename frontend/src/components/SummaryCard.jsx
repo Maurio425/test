@@ -2,16 +2,16 @@ import React from 'react';
 
 function SummaryCard({ title, value, icon }) {
   return (
-    <div className="bg-white shadow-lg rounded-xl p-4 border border-gray-200 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+    <div className="bg-white shadow-lg rounded-xl p-4 border border-neutral-300 hover:shadow-xl transition-shadow duration-300 ease-in-out">
       <div className="flex items-center"> {/* Changed to justify-between if icon is on the right */}
         {icon && (
-          <div className="flex-shrink-0 mr-3 text-indigo-600 h-8 w-8 sm:h-10 sm:w-10"> {/* Ensure icon doesn't shrink and has margin */}
+          <div className="flex-shrink-0 mr-3 text-primary h-8 w-8 sm:h-10 sm:w-10"> {/* Ensure icon doesn't shrink and has margin */}
             {icon}
           </div>
         )}
         <div className="flex-grow"> {/* Text content takes available space */}
-          <p className="text-sm font-medium text-gray-500 truncate">{title}</p>
-          <p className="text-3xl sm:text-4xl font-semibold text-gray-800 mt-1">{value}</p>
+          <p className="text-sm font-medium text-neutral-600 truncate">{title}</p>
+          <p className="text-3xl sm:text-4xl font-semibold text-neutral-800 mt-1">{value}</p>
         </div>
       </div>
       {/* Optional footer for links like "View Details" */}

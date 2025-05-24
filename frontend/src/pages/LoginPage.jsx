@@ -31,7 +31,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-neutral-100 p-4">
       <div className="w-full max-w-md">
         <LoginForm onLogin={handleLogin} />
         {errorMessage && (
@@ -39,17 +39,17 @@ function LoginPage() {
             {errorMessage}
           </p>
         )}
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-neutral-600">
           Don't have an account?{' '}
-          <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+          <Link to="/signup" className="font-medium text-primary hover:text-secondary">
             Sign up
           </Link>
         </p>
         {/* Adding a note about dummy credentials for convenience */}
-        <div className="mt-4 p-3 bg-blue-100 border border-blue-300 rounded-md text-sm text-blue-700 text-center">
+        <div className="mt-4 p-3 bg-blue-50 border border-blue-300 rounded-md text-sm text-blue-700 text-center">
           <p className="font-semibold">Demo Credentials:</p>
-          <p>Email: <code>user@example.com</code></p>
-          <p>Password: <code>password123</code></p>
+          <p>Email: <code className="text-neutral-800">user@example.com</code></p>
+          <p>Password: <code className="text-neutral-800">password123</code></p>
         </div>
       </div>
     </div>
