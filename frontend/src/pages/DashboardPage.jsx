@@ -29,7 +29,7 @@ function DashboardPage() {
     <div className="space-y-4 sm:space-y-6"> {/* Using space-y for consistent vertical spacing */}
       <h1 className="text-xl sm:text-2xl font-semibold text-gray-800">Dashboard Overview</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {summaryData.map((item, index) => (
           <SummaryCard
             key={index}
@@ -40,12 +40,12 @@ function DashboardPage() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ChartComponent title={`Client Acquisition Trends (Total: ${totalClients})`} />
         <ChartComponent title={`Lead Conversion Funnel (Total: ${totalLeads})`} />
       </div>
       
-      <div className="grid grid-cols-1 gap-4 sm:gap-6"> 
+      <div className="grid grid-cols-1 gap-6"> 
         <ChartComponent title={`Tasks Overview (Pending: ${pendingTasks} / Total: ${totalTasks})`} />
       </div>
     </div>
