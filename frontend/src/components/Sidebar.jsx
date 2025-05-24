@@ -64,7 +64,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
               to={item.href}
               onClick={window.innerWidth < 768 ? toggleSidebar : undefined} // Close sidebar on mobile after click
               className={({ isActive }) =>
-                `${baseLinkClasses} ${isActive ? activeLinkClasses : inactiveLinkClasses}`
+                `${baseLinkClasses} ${isActive ? `${activeLinkClasses} border-l-4 border-blue-500` : inactiveLinkClasses}`
               }
             >
               {/* item.icon && item.icon */} {/* Render icon if provided */}
