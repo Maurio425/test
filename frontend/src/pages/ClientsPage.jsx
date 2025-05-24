@@ -1,75 +1,68 @@
 import React, { useState } from 'react';
-import ClientList from '../components/clients/ClientList'; // Adjusted path
-import ClientForm from '../components/clients/ClientForm'; // Adjusted path
+import ClientList from '../components/clients/ClientList';
+import ClientForm from '../components/clients/ClientForm';
+import { PlusIcon } from '@heroicons/react/24/solid'; // Example icon for button
 
 function ClientsPage() {
   const [showForm, setShowForm] = useState(false);
-  const [clientToEdit, setClientToEdit] = useState(null); // To pass to ClientForm for editing
+  const [clientToEdit, setClientToEdit] = useState(null);
 
-  // Handler for the "Add New Client" button
   const handleAddNewClient = () => {
-    setClientToEdit(null); // Ensure we are in "add" mode
+    setClientToEdit(null);
     setShowForm(true);
   };
 
-  // Handler for when the form needs to be closed (e.g., after submission or cancellation)
-  const handleFormClose = () => {
-    setShowForm(false);
-    setClientToEdit(null); // Clear any client being edited
+  const handleEditClient = (client) => { // This function will be passed to ClientList
+    setClientToEdit(client);
+    setShowForm(true);
   };
 
-  // Placeholder for actual form submission logic
+  const handleFormClose = () => {
+    setShowForm(false);
+    setClientToEdit(null);
+  };
+
   const handleFormSubmit = (formData) => {
     console.log('ClientsPage: Form submitted with data:', formData);
     if (clientToEdit) {
       console.log('ClientsPage: Would update client:', clientToEdit.id, formData);
-      // Placeholder: Update client in your state/API
     } else {
       console.log('ClientsPage: Would add new client:', formData);
-      // Placeholder: Add new client to your state/API
     }
-    handleFormClose(); // Close form after submission
+    // In a real app, you'd refresh data here
+    handleFormClose();
   };
   
-  // Placeholder for edit action from ClientList (to be implemented in ClientList)
-  // For now, we'll simulate it if needed, or ClientList can call this directly if props are passed
-  // const handleEditClient = (client) => {
-  //   setClientToEdit(client);
-  //   setShowForm(true);
-  // };
-
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-semibold text-gray-800">Manage Clients</h1>
-        {!showForm && ( // Only show "Add New Client" if form is not visible
+    <div className="space-y-6 sm:space-y-8"> {/* Consistent vertical spacing */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
+          {showForm ? (clientToEdit ? 'Edit Client' : 'Add New Client') : 'Manage Clients'}
+        </h1>
+        {!showForm && (
           <button
             onClick={handleAddNewClient}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 ease-in-out"
+            className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 ease-in-out text-sm sm:text-base"
           >
+            <PlusIcon className="h-5 w-5 mr-2" />
             Add New Client
           </button>
         )}
       </div>
 
-      {/* Conditional rendering for the ClientForm */}
-      {showForm && (
-        <div className="mb-8 p-4 bg-white shadow-lg rounded-lg">
+      {showForm ? (
+        // The ClientForm already has its own card-like styling (bg-white, shadow, rounded-xl, border)
+        // So we don't need to wrap it in another card here, just provide margin if needed.
+        <div className="mt-0"> {/* Margin top can be adjusted or removed if form's internal padding is enough */}
           <ClientForm
             onSubmit={handleFormSubmit}
             clientToEdit={clientToEdit}
-            onCancel={handleFormClose} // Pass the cancel handler
+            onCancel={handleFormClose}
           />
         </div>
+      ) : (
+        <ClientList onEditClient={handleEditClient} />
       )}
-
-      {/* ClientList is always visible unless form is shown fullscreen (not the case here) */}
-      {!showForm && <ClientList /* onEditClient={handleEditClient} ... other props */ />}
-      
-      {/* If you want the list to be visible even when the form is open (e.g., form in a modal or a small section), adjust the above */}
-      {/* For example, to always show ClientList: */}
-      {/* <ClientList /> */}
-
     </div>
   );
 }

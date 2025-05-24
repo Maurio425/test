@@ -7,7 +7,6 @@ function SignupForm({ onSignup }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // onSignup will be a function passed from SignupPage to handle the signup logic
     if (onSignup) {
       onSignup(username, email, password);
     } else {
@@ -16,14 +15,15 @@ function SignupForm({ onSignup }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-700">Create Account</h2>
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+    <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200 w-full max-w-md">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center text-gray-800">Create Account</h2>
+      
+      <div className="mb-5">
+        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="username">
           Username
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="mt-1 block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm transition-shadow duration-150"
           id="username"
           type="text"
           placeholder="Choose a username"
@@ -32,37 +32,41 @@ function SignupForm({ onSignup }) {
           required
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-          Email
+      
+      <div className="mb-5">
+        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
+          Email Address
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="mt-1 block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm transition-shadow duration-150"
           id="email"
           type="email"
-          placeholder="Enter your email"
+          placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
       </div>
-      <div className="mb-6">
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+      
+      <div className="mb-6 sm:mb-8">
+        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
           Password
         </label>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          className="mt-1 block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm transition-shadow duration-150"
           id="password"
           type="password"
-          placeholder="******************"
+          placeholder="•••••••• (at least 8 characters)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          minLength="8" // Basic password length validation
         />
       </div>
-      <div className="flex items-center justify-between">
+      
+      <div className="mt-8">
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-md hover:shadow-lg transition-all duration-150 ease-in-out text-base"
           type="submit"
         >
           Sign Up

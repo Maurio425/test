@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import TaskList from '../components/tasks/TaskList'; // Adjusted path
-import TaskForm from '../components/tasks/TaskForm'; // Adjusted path
+import TaskList from '../components/tasks/TaskList';
+import TaskForm from '../components/tasks/TaskForm';
+import { PlusIcon } from '@heroicons/react/24/solid';
 
 function TasksPage() {
   const [showForm, setShowForm] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(null);
-  // Placeholder for tasks data - in a real app, this would come from state management (e.g., Context, Redux) or API
-  // const [tasks, setTasks] = useState(mockTasks); // Assuming mockTasks is imported or defined here if TaskList doesn't manage its own data
 
   const handleAddNewTask = () => {
     setTaskToEdit(null);
+    setShowForm(true);
+  };
+
+  const handleEditTask = (task) => {
+    setTaskToEdit(task);
     setShowForm(true);
   };
 
@@ -22,60 +26,49 @@ function TasksPage() {
     console.log('TasksPage: Form submitted with data:', formData);
     if (taskToEdit) {
       console.log('TasksPage: Would update task:', taskToEdit.id, formData);
-      // Placeholder: Update task in your state/API
-      // setTasks(prevTasks => prevTasks.map(task => task.id === taskToEdit.id ? {...task, ...formData} : task));
     } else {
       console.log('TasksPage: Would add new task:', formData);
-      // Placeholder: Add new task to your state/API
-      // setTasks(prevTasks => [...prevTasks, {id: Date.now(), ...formData}]); // Example: adding with a temp ID
     }
+    // In a real app, you'd refresh data here
     handleFormClose();
-  };
-
-  const handleEditTask = (task) => {
-    setTaskToEdit(task);
-    setShowForm(true);
   };
 
   const handleMarkTaskComplete = (taskId) => {
     console.log('TasksPage: Would mark task as complete:', taskId);
-    // Placeholder: Update task status in your state/API
-    // setTasks(prevTasks => prevTasks.map(task => task.id === taskId ? {...task, status: 'Completed'} : task));
+    // In a real app, you'd update task status and refresh data here
   };
-
+  
   return (
-    <div className="p-6 bg-gray-50 min-h-full">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-semibold text-gray-800">Manage Tasks</h1>
+    <div className="space-y-6 sm:space-y-8"> {/* Consistent vertical spacing */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
+        <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
+          {showForm ? (taskToEdit ? 'Edit Task' : 'Add New Task') : 'Manage Tasks'}
+        </h1>
         {!showForm && (
           <button
             onClick={handleAddNewTask}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 ease-in-out"
+            className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-150 ease-in-out text-sm sm:text-base"
           >
+            <PlusIcon className="h-5 w-5 mr-2" />
             Add New Task
           </button>
         )}
       </div>
 
-      {showForm && (
-        <div className="mb-8 p-4 bg-white shadow-lg rounded-lg">
+      {showForm ? (
+        <div className="mt-0">
           <TaskForm
             onSubmit={handleFormSubmit}
             taskToEdit={taskToEdit}
             onCancel={handleFormClose}
           />
         </div>
-      )}
-
-      {!showForm && (
+      ) : (
         <TaskList 
           onEditTask={handleEditTask} 
           onMarkComplete={handleMarkTaskComplete} 
-          // tasks={tasks} // Pass tasks if TaskList doesn't fetch/manage its own
         />
       )}
-      
-      {/* If you want the list to be visible even when the form is open (e.g., form in a modal or a small section), adjust the logic */}
     </div>
   );
 }

@@ -11,6 +11,12 @@ const initialFormState = {
   assignedTo: '',
 };
 
+// Sample data (in a real app, this would come from state/API or context)
+const assignableUsers = ['Sales Rep A', 'Sales Rep B', 'Sales Team Alpha', 'Marketing Team', 'Support Team'];
+const leadSources = ['Website', 'Referral', 'Cold Call', 'Webinar', 'Advertisement', 'Trade Show', 'Other'];
+const leadStatuses = ['New', 'Contacted', 'Qualified', 'Proposal Sent', 'Negotiation', 'Closed - Won', 'Closed - Lost', 'On Hold'];
+
+
 function LeadForm({ onSubmit, leadToEdit, onCancel }) {
   const [formData, setFormData] = useState(initialFormState);
 
@@ -42,84 +48,79 @@ function LeadForm({ onSubmit, leadToEdit, onCancel }) {
     if (onSubmit) {
       onSubmit(formData);
     }
-    // Optionally reset form or handle post-submission logic
-    // setFormData(initialFormState); // uncomment to reset after submit
   };
 
-  // Sample users/teams for assignment (in a real app, this would come from state/API)
-  const assignableUsers = ['Sales Rep A', 'Sales Rep B', 'Sales Team Alpha', 'Marketing Team'];
-  const leadSources = ['Website', 'Referral', 'Cold Call', 'Webinar', 'Advertisement', 'Other'];
-  const leadStatuses = ['New', 'Contacted', 'Qualified', 'Proposal Sent', 'Negotiation', 'Closed - Won', 'Closed - Lost'];
-
+  const inputClass = "mt-1 block w-full px-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow duration-150";
+  const labelClass = "block text-sm font-semibold text-gray-700 mb-1";
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md space-y-6 w-full max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold text-gray-700 mb-6 text-center">
+    <form onSubmit={handleSubmit} className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200 w-full max-w-2xl mx-auto space-y-6">
+      <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 sm:mb-8 text-center">
         {leadToEdit ? 'Edit Lead' : 'Add New Lead'}
       </h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+          <label htmlFor="name" className={labelClass}>Full Name</label>
           <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} required 
-                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                 className={inputClass} placeholder="e.g., Jane Doe" />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+          <label htmlFor="email" className={labelClass}>Email Address</label>
           <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} required
-                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                 className={inputClass} placeholder="e.g., jane.doe@example.com" />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
+          <label htmlFor="phone" className={labelClass}>Phone Number</label>
           <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange}
-                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                 className={inputClass} placeholder="e.g., (555) 234-5678" />
         </div>
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company</label>
+          <label htmlFor="company" className={labelClass}>Company</label>
           <input type="text" name="company" id="company" value={formData.company} onChange={handleChange}
-                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+                 className={inputClass} placeholder="e.g., Innovations Ltd." />
         </div>
         <div>
-          <label htmlFor="source" className="block text-sm font-medium text-gray-700">Source</label>
+          <label htmlFor="source" className={labelClass}>Lead Source</label>
           <select name="source" id="source" value={formData.source} onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                  className={`${inputClass} bg-white`}>
             <option value="">Select Source</option>
             {leadSources.map(src => <option key={src} value={src}>{src}</option>)}
           </select>
         </div>
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+          <label htmlFor="status" className={labelClass}>Lead Status</label>
           <select name="status" id="status" value={formData.status} onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                  className={`${inputClass} bg-white`}>
             {leadStatuses.map(stat => <option key={stat} value={stat}>{stat}</option>)}
           </select>
         </div>
       </div>
 
       <div>
-        <label htmlFor="assignedTo" className="block text-sm font-medium text-gray-700">Assigned To</label>
+        <label htmlFor="assignedTo" className={labelClass}>Assigned To</label>
         <select name="assignedTo" id="assignedTo" value={formData.assignedTo} onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                className={`${inputClass} bg-white`}>
           <option value="">Unassigned</option>
           {assignableUsers.map(user => <option key={user} value={user}>{user}</option>)}
         </select>
       </div>
 
       <div>
-        <label htmlFor="notes" className="block text-sm font-medium text-gray-700">Notes</label>
+        <label htmlFor="notes" className={labelClass}>Notes</label>
         <textarea name="notes" id="notes" value={formData.notes} onChange={handleChange} rows="4"
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                  className={`${inputClass} resize-none`} placeholder="e.g., Initial contact made, interested in product demo."></textarea>
       </div>
 
-      <div className="flex justify-end space-x-4">
+      <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 pt-4">
         {onCancel && (
           <button type="button" onClick={onCancel}
-                  className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  className="w-full sm:w-auto px-6 py-2.5 border border-gray-300 rounded-lg shadow-sm text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-150">
             Cancel
           </button>
         )}
         <button type="submit"
-                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                className="w-full sm:w-auto px-6 py-2.5 border border-transparent rounded-lg shadow-md text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150">
           {leadToEdit ? 'Update Lead' : 'Save Lead'}
         </button>
       </div>

@@ -1,38 +1,86 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/outline'; // Example: Using Heroicons
 
 const navigationLinks = [
-  { name: 'Dashboard', href: '/dashboard' },
+  { name: 'Dashboard', href: '/dashboard' }, // icon: <HomeIcon className="h-5 w-5 mr-3" /> (example if icons are added)
   { name: 'Clients', href: '/clients' },
   { name: 'Leads', href: '/leads' },
   { name: 'Tasks', href: '/tasks' },
   { name: 'Notes', href: '/notes' },
 ];
 
-function Sidebar() {
-  const baseLinkClasses = "block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md";
-  const activeLinkClasses = "bg-gray-900 text-white"; // Active link will have a different background and text color
-  const inactiveLinkClasses = "text-gray-300"; // Inactive link color
+function Sidebar({ isOpen, toggleSidebar }) {
+  // Base classes for links
+  const baseLinkClasses = "flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors duration-150 ease-in-out";
+  // Active link: different background and text color
+  const activeLinkClasses = "bg-gray-900 text-white"; 
+  // Inactive link: hover effect
+  const inactiveLinkClasses = "text-gray-300 hover:bg-gray-700 hover:text-white"; 
 
   return (
-    <div className="bg-gray-800 text-white w-64 min-h-screen p-4 space-y-2">
-      <div className="text-2xl font-semibold text-white p-2 mb-4">My CRM</div>
-      <nav>
-        {navigationLinks.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.href}
-            // `isActive` is provided by NavLink
-            className={({ isActive }) =>
-              `${baseLinkClasses} ${isActive ? activeLinkClasses : inactiveLinkClasses}`
-            }
+    <>
+      {/* Overlay for mobile when sidebar is open */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-30 bg-black opacity-50 md:hidden" 
+          onClick={toggleSidebar}
+          aria-hidden="true"
+        ></div>
+      )}
+
+      <div 
+        className={`
+          fixed inset-y-0 left-0 z-40 flex flex-col
+          bg-gray-800 text-white 
+          w-64 min-h-screen p-4 space-y-3 border-r border-gray-700 shadow-lg
+          transition-transform duration-300 ease-in-out 
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+          md:relative md:translate-x-0 md:min-h-0 md:shadow-none md:flex 
+          ${isOpen ? 'md:w-64' : 'md:w-0 md:p-0 md:opacity-0 md:invisible'} 
+          md:transition-all md:duration-300 md:ease-in-out
+        `}
+      >
+        <div className="flex items-center justify-between mb-4">
+          <div className={`text-2xl font-semibold text-white p-2 ${!isOpen && 'md:hidden'}`}>
+            My CRM
+          </div>
+          {/* Close button for mobile - visible only when sidebar is open and on small screens */}
+          <button 
+            onClick={toggleSidebar} 
+            className={`md:hidden p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white
+              ${!isOpen && 'hidden'} 
+            `}
+            aria-label="Close sidebar"
           >
-            {item.name}
-          </NavLink>
-        ))}
-      </nav>
-      {/* Additional sidebar content like user profile or logout button can go here later */}
-    </div>
+            <XMarkIcon className="h-6 w-6" />
+          </button>
+        </div>
+
+        <nav className={`flex-grow ${!isOpen && 'md:hidden'}`}>
+          {navigationLinks.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.href}
+              onClick={window.innerWidth < 768 ? toggleSidebar : undefined} // Close sidebar on mobile after click
+              className={({ isActive }) =>
+                `${baseLinkClasses} ${isActive ? activeLinkClasses : inactiveLinkClasses}`
+              }
+            >
+              {/* item.icon && item.icon */} {/* Render icon if provided */}
+              {item.name}
+            </NavLink>
+          ))}
+        </nav>
+        
+        {/* Optional: User profile section or logout at the bottom of sidebar */}
+        {/* <div className={`mt-auto ${!isOpen && 'md:hidden'}`}>
+          <div className="p-2 border-t border-gray-700">
+            User Profile / Logout
+          </div>
+        </div> */}
+      </div>
+    </>
   );
 }
 
