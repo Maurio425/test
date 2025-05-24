@@ -46,7 +46,7 @@ function LoginPage() {
           </Link>
         </p>
         {/* Adding a note about dummy credentials for convenience */}
-        <div className="mt-4 p-3 bg-blue-100 border border-blue-300 rounded-md text-sm text-blue-700">
+        <div className="mt-4 p-3 bg-blue-100 border border-blue-300 rounded-md text-sm text-blue-700 text-center">
           <p className="font-semibold">Demo Credentials:</p>
           <p>Email: <code>user@example.com</code></p>
           <p>Password: <code>password123</code></p>
