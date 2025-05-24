@@ -5,18 +5,18 @@ import ChartComponent from '../components/ChartComponent'; // Adjusted path
 function DashboardPage() {
   // Sample data for summary cards
   const summaryData = [
-    { title: 'Total Clients', value: '1,250', icon: '👥' }, // Example icon (emoji)
-    { title: 'Active Leads', value: '350', icon: '🔥' },
-    { title: 'Pending Tasks', value: '75', icon: '⏳' },
-    { title: 'Revenue (MTD)', value: '$15,600', icon: '💰' },
+    { title: 'Total Clients', value: '1,250', icon: 'user-group' },
+    { title: 'Active Leads', value: '350', icon: 'fire' },
+    { title: 'Pending Tasks', value: '75', icon: 'clock' },
+    { title: 'Revenue (MTD)', value: '$15,600', icon: 'currency-dollar' },
   ];
 
   return (
     <div className="p-6 bg-gray-50 min-h-full"> {/* Changed background to gray-50 for better contrast with white cards */}
-      <h1 className="text-3xl font-semibold text-gray-800 mb-6">Dashboard Overview</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">Dashboard Overview</h1>
 
       {/* Section for Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
         {summaryData.map((item, index) => (
           <SummaryCard
             key={index}

@@ -1,23 +1,41 @@
 import React from 'react';
-
-// Placeholder for an icon component or library if you decide to use one.
-// For now, icons can be simple emojis or text.
-// const Icon = ({ iconName }) => <span className="mr-2">{iconName}</span>;
+import {
+  UserGroupIcon,
+  FireIcon,
+  ClockIcon,
+  CurrencyDollarIcon,
+} from '@heroicons/react/24/outline';
 
 function SummaryCard({ title, value, icon }) {
+  let IconComponent;
+  switch (icon) {
+    case 'user-group':
+      IconComponent = UserGroupIcon;
+      break;
+    case 'fire':
+      IconComponent = FireIcon;
+      break;
+    case 'clock':
+      IconComponent = ClockIcon;
+      break;
+    case 'currency-dollar':
+      IconComponent = CurrencyDollarIcon;
+      break;
+    default:
+      IconComponent = () => null; // Or a default placeholder icon
+  }
+
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300 ease-in-out">
+    <div className="bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow duration-300 ease-in-out">
       <div className="flex items-center">
-        {icon && <span className="text-3xl mr-4 text-blue-500">{icon}</span>}
+        {IconComponent && (
+          <IconComponent className="h-8 w-8 text-blue-500 mr-3" />
+        )}
         <div>
-          <p className="text-sm text-gray-500 font-medium">{title}</p>
-          <p className="text-2xl font-semibold text-gray-800">{value}</p>
+          <p className="text-xs text-gray-600 font-medium uppercase">{title}</p>
+          <p className="text-3xl font-bold text-gray-900">{value}</p>
         </div>
       </div>
-      {/* Optionally, you can add a footer or a link here */}
-      {/* <div className="mt-4">
-        <a href="#" className="text-sm text-blue-500 hover:text-blue-700">View Details</a>
-      </div> */}
     </div>
   );
 }

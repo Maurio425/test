@@ -11,7 +11,7 @@ const navigationLinks = [
 
 function Sidebar() {
   const baseLinkClasses = "block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 hover:text-white rounded-md";
-  const activeLinkClasses = "bg-gray-900 text-white"; // Active link will have a different background and text color
+  const activeLinkClasses = "bg-gray-700 text-white border-l-4 border-blue-500"; // Active link will have a different background and text color
   const inactiveLinkClasses = "text-gray-300"; // Inactive link color
 
   return (
